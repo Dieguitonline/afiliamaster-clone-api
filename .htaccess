@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+
+RewriteEngine On
+#http to https
+#RewriteCond %{HTTPS} off
+#RewriteRule .* https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+#www to non-www
+RewriteCond %{HTTP_HOST} ^www\.(.+)$
+RewriteRule (.*) https://%1%{REQUEST_URI} [NE,L,R=301]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} !\.(?:css|js|map|jpe?g|gif|png|eot|svg|woff2|ttf|json)$ [NC] # ipo plus APP
+RewriteRule ^(.*)$ index.php/$1 [L]
+
+</IfModule>
